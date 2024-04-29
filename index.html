@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tic Tac Toe Game</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <h2>
+      It's your turn,
+      <span id="current_player" class="display_player"></span>
+      <br />
+      <span id="score">Score: X:0 O:0</span>
+      <br />
+      <span id="pc_wait"></span>
+    </h2>
+    <h2 id="result"></h2>
+    <div class="game_board">
+      <div class="row">
+        <div class="one" onclick="player_turn(0)">
+          <span class="xo"></span>
+        </div>
+        <div class="two" onclick="player_turn(1)">
+          <span class="xo"></span>
+        </div>
+        <div class="three" onclick="player_turn(2)">
+          <span class="xo"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="four" onclick="player_turn(3)">
+          <span class="xo"></span>
+        </div>
+        <div class="five" onclick="player_turn(4)">
+          <span class="xo"></span>
+        </div>
+        <div class="six" onclick="player_turn(5)">
+          <span class="xo"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="seven" onclick="player_turn(6)">
+          <span class="xo"></span>
+        </div>
+        <div class="eight" onclick="player_turn(7)">
+          <span class="xo"></span>
+        </div>
+        <div class="nine" onclick="player_turn(8)">
+          <span class="xo"></span>
+        </div>
+      </div>
+    </div>
+    <button class="new_game" onclick="new_game(false)">
+      New Game vs Player
+    </button>
+    <button class="play_computer" onclick="new_game(true)">
+      New Game vs PC
+    </button>
+    <button class="reset" onclick="reset()">Reset</button>
+
+    <script src="main.js"></script>
+  </body>
+</html>
