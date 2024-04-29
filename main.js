@@ -18,6 +18,18 @@ const win_combinations = [
   [2, 4, 6], // Diagonals
 ];
 
+const name = [
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
+
 //resets the board and score
 function reset() {
   reset_board();
@@ -51,23 +63,13 @@ function reset_board() {
 }
 
 //updates board at pos depending on who's turn it is
+//returns false if board state was not updated OR game finished after updating
+//returns true if board state updates and game did not finish
 function update_board(pos) {
   //if spot is taken or not in a game, return
   if (board[pos] != "" || game_over === true) {
-    return;
+    return false;
   }
-  //name to select the right element
-  var name = [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-  ];
 
   if (xturn) {
     board[pos] = "X";
@@ -80,12 +82,13 @@ function update_board(pos) {
   //increment turns and check if win/tie
   turn_count = turn_count + 1;
   if (check_win()) {
-    return;
+    return false;
   }
 
   //change x's turn
   xturn = !xturn;
   document.getElementById("current_player").innerHTML = xturn ? "X" : "O";
+  return true;
 }
 
 function player_turn(pos) {
@@ -96,8 +99,7 @@ function player_turn(pos) {
     console.log("not your turn!");
     return;
   } else {
-    update_board(pos);
-    if (vscomputer) {
+    if (update_board(pos) && vscomputer) {
       computer_turn();
     }
   }
@@ -108,6 +110,7 @@ function computer_turn() {
   if (game_over) {
     return;
   }
+  //isplayerturn to determine if player can move
   isplayerturn = false;
   document.getElementById("pc_wait").innerHTML = "Computer is thinking...";
   sleep(1500).then(() => {
@@ -117,10 +120,12 @@ function computer_turn() {
   });
 }
 
-//checks if there's a winner
+//returns true if game ended, false otherwise
 function check_win() {
+  //iterate combo through win_combination board states
   for (let combo of win_combinations) {
     const [a, b, c] = combo;
+    //check if all x/o match
     if (board[a] !== "" && board[a] === board[b] && board[b] === board[c]) {
       document.getElementById("result").innerText = `${board[a]} wins!`;
       game_over = true;
